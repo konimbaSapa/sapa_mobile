@@ -389,7 +389,7 @@ class _MonProfileState extends State<MonProfile> {
                             const SizedBox(height: 15.0),
 
                             // Bouton de modification des infos sur "Mon Corps"
-                            Container(
+                            /*Container(
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(100.0),
@@ -407,10 +407,24 @@ class _MonProfileState extends State<MonProfile> {
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                   ),
+                                  
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
                                         Theme.of(context).primaryColorLight,
                                       ),
+                                ),
+                                
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).primaryColorLight,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  elevation: 0,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0,
+                                  ),
                                 ),
 
                                 onPressed:
@@ -426,13 +440,13 @@ class _MonProfileState extends State<MonProfile> {
                                     ),
 
                                 child: Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    InkWell(
-                                      child: Icon(
-                                        Icons.create_rounded,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
+                                    Icon(
+                                      Icons.create_rounded,
+                                      color: Theme.of(context).primaryColor,
                                     ),
+
                                     const SizedBox(width: 5.0),
                                     Text(
                                       'Modifier',
@@ -443,8 +457,49 @@ class _MonProfileState extends State<MonProfile> {
                                   ],
                                 ),
                               ),
+                              */
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).primaryColorLight,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                  vertical: 10.0,
+                                ),
+                              ),
+                              onPressed:
+                                  () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => MonCorpsForm(
+                                            taille: _taille,
+                                            poids: _poids,
+                                          ),
+                                    ),
+                                  ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.create_rounded,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  const SizedBox(width: 5.0),
+                                  Text(
+                                    'Modifier',
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
 
-                              /*
+                            /*
                                   child: RaisedButton(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10.0)
@@ -476,9 +531,8 @@ class _MonProfileState extends State<MonProfile> {
                                         ]
                                     ),
                                   ),
-*/
-                            ),
 
+                            ),*/
                             const SizedBox(height: 15.0),
                           ],
                         ),

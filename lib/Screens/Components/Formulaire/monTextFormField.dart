@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class MonTextFormField extends StatefulWidget {
   final String? myLabelTitle;
-  //String? myVar;
-  final RegExp myRegex;
+  late String? myVar;
+  final RegExp? myRegex;
   final String? myValidation;
   final String? myHintText;
   final String? mySuffixText;
@@ -40,6 +40,16 @@ class _MonTextFormFieldState extends State<MonTextFormField> {
 
           TextFormField(
             onChanged: (value) => setState(() => widget.myVar = value),
+
+            validator: (value) {
+              if (value == null || value.isEmpty) return widget.myValidation;
+              if (widget.myRegex != null && !widget.myRegex!.hasMatch(value)) {
+                return widget.myValidation;
+              }
+              return null;
+            },
+
+            /*
             validator:
                 (value) =>
                     widget.myRegex != null
@@ -50,7 +60,7 @@ class _MonTextFormFieldState extends State<MonTextFormField> {
                             ? widget.myValidation
                             : null
                         : null,
-
+            */
             initialValue: widget.myVar,
             decoration: InputDecoration(
               hintText: widget.myHintText,

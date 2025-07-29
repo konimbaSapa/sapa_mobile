@@ -41,7 +41,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
     '40 Landes',
     '44 Loire-Atlantique',
     '47 Lot-et-Garrone',
-    ' 49 Maine-et-Loire',
+    '49 Maine-et-Loire',
     '53 Mayenne',
     '64 Pyrénées Atlantiques',
     '72 Sharte',
@@ -295,7 +295,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Prénom',
+                                    'Prénom*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -315,7 +315,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                                 : null,
                                     initialValue: _infoP ? _prenom : null,
                                     decoration: InputDecoration(
-                                      hintText: "Prénom",
+                                      //hintText: "Prénom",
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                             horizontal: 10.0,
@@ -351,7 +351,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Nom',
+                                    'Nom*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -370,7 +370,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                                 : null,
                                     initialValue: _infoP ? _nom : null,
                                     decoration: InputDecoration(
-                                      hintText: "Nom",
+                                      //hintText: "Nom",
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                             horizontal: 10.0,
@@ -480,7 +480,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Email',
+                                    'Email*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -498,7 +498,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                                 : null,
                                     initialValue: _infoP ? _email : null,
                                     decoration: InputDecoration(
-                                      hintText: "Email",
+                                      //hintText: "Email",
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                             horizontal: 10.0,
@@ -528,7 +528,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Mot de passe',
+                                    'Mot de passe*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -584,7 +584,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Confirmer MDP',
+                                    'Confirmer MDP*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -641,7 +641,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
 
                                 children: [
                                   const Text(
-                                    "La territoire",
+                                    "La territoire*",
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -680,7 +680,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Téléphone',
+                                    'Téléphone*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
                                   const SizedBox(height: 10.0),
@@ -696,7 +696,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                                 : null,
                                     initialValue: _infoP ? _tel : null,
                                     decoration: InputDecoration(
-                                      hintText: "Téléphone",
+                                      //hintText: "Téléphone",
                                       contentPadding:
                                           const EdgeInsets.symmetric(
                                             horizontal: 10.0,
@@ -725,7 +725,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Role(s)',
+                                    'Role(s)*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
                                   const SizedBox(height: 10.0),
@@ -766,7 +766,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Nom de la structure',
+                                    'Nom de la structure*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -814,7 +814,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Type de structure',
+                                    'Type de structure*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -863,7 +863,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Adresse de structure',
+                                    'Adresse de structure*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -965,7 +965,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Code postal',
+                                    'Code postal*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -1012,7 +1012,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   const Text(
-                                    'Ville',
+                                    'Ville*',
                                     style: TextStyle(fontSize: 18.0),
                                   ),
 
@@ -1053,19 +1053,43 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
 
                             /////////////////////////////////////////////
                             // Bouton sauvegarder ///////////////////////
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).primaryColor,
-                                elevation: 0,
-                                padding: EdgeInsets.symmetric(vertical: 15.0),
-                              ),
-                              onPressed: /*if ( nbRolesCoches > 2){
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.amber,
+                                    foregroundColor: Colors.white,
+                                    elevation: 10.0,
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                      horizontal: 15.0,
+                                    ),
+                                  ),
+                                  child: Text('Annuler'),
+                                ),
+
+                                const SizedBox(width: 150.0),
+
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).primaryColor,
+                                    elevation: 10.0,
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                      horizontal: 15.0,
+                                    ),
+                                  ),
+                                  onPressed: /*if ( nbRolesCoches > 2){
                                             print('Pas plus de 2 roles ');
                                           };
                                           */
-                                  insert,
+                                      insert,
 
-                              /*
+                                  /*
                                   !_prenomNomRegex.hasMatch(_prenom)
                                           //||!_prenomNomRegex.hasMatch(_nomStructure,)
                                           ||
@@ -1081,10 +1105,12 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                       ? submitForm
                                       : null,
                                       */
-                              child: Text(
-                                'SOUMETTRE'.toUpperCase(),
-                                style: TextStyle(color: Colors.white),
-                              ),
+                                  child: Text(
+                                    'SOUMETTRE'.toUpperCase(),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

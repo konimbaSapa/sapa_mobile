@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:koon/Screens/Components/Formulaire/monTextFormField.dart';
+import 'package:koon/Screens/Components/Formulaire/monTextFormField.dart';
 import 'package:koon/Screens/Components/maNavDrawer.dart';
 import 'package:koon/Screens/Components/monAppBar.dart';
 import 'package:koon/Screens/Components/monTitreDePage.dart';
@@ -19,8 +19,8 @@ class MonCorpsForm extends StatefulWidget {
 class _MonCorpsFormState extends State<MonCorpsForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  //final RegExp _tailleRegex = RegExp(r"^[0-1]\.[0-9]{2}$");
-  //final RegExp _poidsRegex = RegExp(r"^([1-2]?)[0-9]{2}(\.[0-9])?$");
+  final RegExp _tailleRegex = RegExp(r"^[0-1]\.[0-9]{2}$");
+  final RegExp _poidsRegex = RegExp(r"^([1-2]?)[0-9]{2}(\.[0-9])?$");
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _MonCorpsFormState extends State<MonCorpsForm> {
                           children: [
                             /////////////////////////////////////
                             // Taille ///////////////////////////
-                            /**MonTextFormField(
+                            MonTextFormField(
                               myLabelTitle: 'Taille',
                               myVar: widget.taille.toString(),
                               myRegex: _tailleRegex,
@@ -86,7 +86,6 @@ class _MonCorpsFormState extends State<MonCorpsForm> {
                               mySuffixText: 'kg',
                               mySuffixIcon: Icons.monitor_weight_rounded,
                             ),
-                            */
                           ],
                         ),
                       ),
@@ -100,7 +99,7 @@ class _MonCorpsFormState extends State<MonCorpsForm> {
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                 ),

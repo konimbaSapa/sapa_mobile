@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:koon/Screens/Components/maNavDrawer.dart';
 import 'package:koon/Screens/Components/monAppBar.dart';
+import 'package:koon/Screens/Module_Structure/structureTable.dart';
 import 'package:koon/Screens/Module_Users/userTable.dart';
 
 class MyScrollView extends StatefulWidget {
@@ -46,22 +47,61 @@ class _MyScrollViewState extends State<MyScrollView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(width: 100.0),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        label: Text(''),
+                        icon: Icon(Icons.arrow_back),
+                      ),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 20.0),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              foregroundColor: Colors.white,
+                              elevation: 10.0,
+                            ),
+                            onPressed:
+                                () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => UsersTable(),
+                                  ),
+                                ),
+
+                            //message('konimba');
+                            child: const Text('Utilisateurs'),
+                          ),
+
+                          const SizedBox(width: 35.0),
+
+                          ElevatedButton(
+                            onPressed:
+                                () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => StructureTable(),
+                                  ),
+                                ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              foregroundColor: Colors.white,
+                              elevation: 10.0,
+                            ),
+
+                            child: const Text('Structures'),
+                          ),
+                        ],
+                      ),
                       //child: Text(
                       //  '🔨 Cette pages est en cours de construction !',
                       // ),
                       //
-                      ElevatedButton(
-                        onPressed:
-                            () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UsersTable(),
-                              ),
-                            ),
-
-                        //message('konimba');
-                        child: const Text('Utilisateurs'),
-                      ),
 
                       // TODO : corps de la page
                     ],

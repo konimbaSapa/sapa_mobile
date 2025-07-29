@@ -168,7 +168,8 @@ class _EmargementState extends State<Emargement> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      //mettre le retour à la bonne séance
+                      //Retour en arrière
+                      Navigator.pop(context);
                     },
                     child: Text('Retour'),
                   ),
