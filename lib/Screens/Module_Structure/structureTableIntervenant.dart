@@ -1,86 +1,60 @@
+//import 'InfosStructure.dart';
+import 'structureService.dart';
+import 'structureModel.dart';
 import 'package:flutter/material.dart';
-//import 'package:koon/Utils/sessionManager.dart';
 import 'dart:async';
-import 'userService.dart';
-import 'userModel.dart';
 import 'package:koon/Screens/Components/maNavDrawer.dart';
 import 'package:koon/Screens/Components/monAppBar.dart';
-import 'package:koon/Old/Module_Profil/profil/screens/formulaires/InfoPersoForm.dart';
 
-class UsersTable extends StatefulWidget {
+class StructureTableInt extends StatefulWidget {
   @override
-  _UsersTableState createState() => _UsersTableState();
+  _StructureTableState createState() => _StructureTableState();
 }
 
-class _UsersTableState extends State<UsersTable> {
-  late Future<List<userModel>> futureUsers;
+class _StructureTableState extends State<StructureTableInt> {
+  late Future<List<structureModel>> FuturStructures;
   int _currentPage = 0;
   int? _itemsPerPage = 10;
-  bool isAdmin = false;
-  bool isIntervenant = false;
-
-  //late int _itemPerPage2;
-
   final List<int> ListItems = [10, 15, 20];
-
   @override
   void initState() {
     super.initState();
-    //_itemPerPage2 = _itemsPerPage!;
-    //futureUsers = userService.fetchUsers();
-
-    //VERIFICATION
-    futureUsers = userService.fetchUserDetails().then((value) {
+    FuturStructures = structureService.fetchStructure().then((value) {
       setState(() {
-        futureUsers = Future.value(value);
+        FuturStructures = Future.value(value);
       });
       return value;
     });
-
-    //Recuperation des roles
-    /*SessionManager.getUserRoles().then((roles) {
-      setState(() {
-        isAdmin = roles.contains("super admin");
-        isIntervenant = roles.contains("Intervenant sportif");
-      });
-    }
-    
-    );*/
   }
 
   @override
   Widget build(BuildContext context) {
-    //final int startIndex = _currentPage * _itemsPerPage;
-    //final int endIndex = (_currentPage + 1) * _itemsPerPage;
-
     return Scaffold(
-      appBar: MonAppBar(myTitle: 'Liste des utilisateurs'),
-      drawer: const MyNavDrawer(),
-
-      body: FutureBuilder<List<userModel>>(
-        future: futureUsers,
+      appBar: MonAppBar(myTitle: 'Liste des structures'),
+      drawer: MyNavDrawer(),
+      body: FutureBuilder<List<structureModel>>(
+        future: FuturStructures,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Erreur : ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Aucun utilisateur trouvé.'));
+            return Center(child: Text('Aucune structure trouvee'));
           }
 
-          final users = snapshot.data!;
-
+          final structure = snapshot.data!;
           return Column(
             children: [
-              //SizedBox(height: 10),
+              //SizedBox(height: 10.0),
               Row(
                 children: [
                   ElevatedButton.icon(
-                    icon: Icon(Icons.arrow_back),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     label: Text(''),
+                    icon: Icon(Icons.arrow_back),
                   ),
                   SizedBox(width: 15),
 
@@ -103,45 +77,33 @@ class _UsersTableState extends State<UsersTable> {
                   ),
                 ],
               ),
-
-              //if (isIntervenant)
+              /*
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InfoPersoForm()),
-                  );
-                },
+                onPressed:
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => InfosStructure()),
+                    ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
                   elevation: 10.0,
                 ),
-                child: Text('Ajouter un utilisateur'),
+                child: Text('Ajouter une structure'),
               ),
-
+*/
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
                   columns: const [
-                    DataColumn(label: Text('NOM')),
-                    DataColumn(label: Text('PRENOM')),
-
-                    //VERIFICATION
+                    DataColumn(label: Text('Nom Structure')),
+                    DataColumn(label: Text('Type Structure')),
+                    DataColumn(label: Text('Adresse')),
                     DataColumn(label: Text('Territoire')),
-                    DataColumn(label: Text('id territoire')),
-                    //DataColumn(label: Text('Fonction')),
-                    DataColumn(label: Text('Email')),
-                    DataColumn(label: Text('Telephone P')),
-                    DataColumn(label: Text('Telephone F')),
-                    DataColumn(label: Text('Nom structure')),
-                    //DataColumn(label: Text('Type structure')),
-                    DataColumn(label: Text('id structure')),
-                    //DataColumn(label: Text('Details')),
                   ],
 
                   rows:
-                      users
+                      structure
                           .skip(_currentPage * _itemsPerPage!)
                           .take(_itemsPerPage!)
                           .toList()
@@ -156,25 +118,22 @@ class _UsersTableState extends State<UsersTable> {
                               color: MaterialStateProperty.resolveWith<Color?>((
                                 Set<MaterialState> states,
                               ) {
-                                return isEven ? Colors.grey[200] : Colors.white;
+                                return isEven ? Colors.grey : Colors.white;
                               }),
                               cells: [
-                                DataCell(Text(item.nom_user)),
-                                DataCell(Text(item.prenom_user)),
-                                DataCell(Text(item.nom_territoire)),
-                                DataCell(Text(item.id_territoire.toString())),
-                                DataCell(Text(item.mail_user)),
-                                DataCell(Text(item.tel_user)),
-                                DataCell(Text(item.tel_f_user)),
                                 DataCell(Text(item.nom_structure)),
-                                DataCell(Text(item.id_structure.toString())),
+                                DataCell(Text(item.nom_statut_structure)),
+                                DataCell(Text(item.nom_adresse)),
+                                DataCell(Text(item.nom_territoire)),
                               ],
                             );
                           })
                           .toList(),
                 ),
               ),
-              SizedBox(height: 10),
+
+              SizedBox(height: 10.0),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -192,12 +151,13 @@ class _UsersTableState extends State<UsersTable> {
                       foregroundColor: Colors.white,
                       elevation: 10.0,
                     ),
-                    child: Text('Précédent'),
+                    child: Text('Precedent'),
                   ),
-                  SizedBox(width: 20),
+
+                  SizedBox(width: 10.0),
                   ElevatedButton(
                     onPressed:
-                        (_currentPage + 1) * _itemsPerPage! < users.length
+                        (_currentPage + 1) * _itemsPerPage! < structure.length
                             ? () {
                               setState(() {
                                 _currentPage++;

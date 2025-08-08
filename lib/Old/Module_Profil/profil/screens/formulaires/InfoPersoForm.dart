@@ -65,6 +65,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
   String _email = "";
   String _tel = "";
   bool _estCoordonnateurPeps = false;
+  int _coordo = 0;
 
   //final TextEditingController _dateinput = TextEditingController();
 
@@ -81,7 +82,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
   //final RegExp _dateRegex = RegExp(r"^([0-2][1-9]|3[0-1])\/(0[1-9]|1[0-2])\/(19|20)[0-9]{2}$",);
   final RegExp _emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
   final RegExp _telRegex = RegExp(
-    r"^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$",
+    r'^(?:\+33[ .-]?[1-9](?:[ .-]?\d{2}){4}|0[1-9](?:[ .-]?\d{2}){4})$',
   );
 
   final RegExp _villeRegex = RegExp(r"^[A-Za-zÀ-ÿ' -]{2,40}$");
@@ -145,12 +146,13 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("Envoie en cours")));
-      // Construire l'objet userModel avec les données du formulaire
+
       // Construis les données à envoyer
+
       Map<String, dynamic> dataToSend = {
         "identifiant": _email,
         "pswd": _pswd,
-        "est_coordonnateur_peps": _estCoordonnateurPeps,
+        "est_coordonnateur_peps": _coordo,
         "roles": roles.entries.where((e) => e.value).map((e) => e.key).toList(),
         "territoire": _selectedTerritoire,
         "nomUser": _nom,
@@ -163,20 +165,32 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
         "adresseComplementaire": _complementAdresseStructure,
         "compteur": 0,
       };
+
+      //Fin de l'envoie des données
+
       int nbRolesCoches = roles.entries.where((e) => e.value).length;
       if (nbRolesCoches > 2) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Erreur : pas plus deux roles ")),
         );
+        return null;
       }
 
       try {
         // Envoie HTTP POST
+        /*ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Envoie des données")));
+        */
         final response = await http.post(
-          Uri.parse('http://10.0.2.2:8000/SAPA-Mobile/users/insert'),
+          //Uri.parse('http://10.0.2.2:8000/SAPA-Mobile/users/insert'),
+          Uri.parse('http://5.196.225.227/SAPA-Mobile/users/insert'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode(dataToSend),
         );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Données envoyées")));
 
         if (response.statusCode == 201) {
           // Succès
@@ -192,6 +206,11 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
           );
         } else {
           print("Erreur lors de la création : ${response.body}");
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Erreur lors de la création : ${response.body}"),
+            ),
+          );
         }
       } catch (e) {
         print('Exception flutter : $e');
@@ -204,6 +223,7 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
 
   void verifCoordo() {
     _estCoordonnateurPeps = roles["Coordonnateur"] ?? false;
+    _coordo = _estCoordonnateurPeps ? 1 : 0;
   }
 
   @override
@@ -690,8 +710,8 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                         (value) => setState(() => _tel = value),
                                     validator:
                                         (value) =>
-                                            value!.isEmpty
-                                                //||!_telRegex.hasMatch(value)
+                                            value!.isEmpty ||
+                                                    !_telRegex.hasMatch(value)
                                                 ? "Entrez un numéro de téléphone valide"
                                                 : null,
                                     initialValue: _infoP ? _tel : null,
@@ -779,10 +799,12 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                         ),
                                     validator:
                                         (value) =>
-                                            value!.isEmpty ||
+                                            value!.isEmpty
+                                                /*||
                                                     !_prenomNomRegex.hasMatch(
                                                       value,
                                                     )
+                                            */
                                                 ? "Entrez un nom de structure valide"
                                                 : null,
                                     initialValue: _infoP ? _nomStructure : null,
@@ -827,10 +849,12 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                         ),
                                     validator:
                                         (value) =>
-                                            value!.isEmpty ||
+                                            value!.isEmpty
+                                                /*||
                                                     !_prenomNomRegex.hasMatch(
                                                       value,
                                                     )
+                                            */
                                                 ? "Entrez un type de structure valide"
                                                 : null,
                                     initialValue:
@@ -1024,8 +1048,8 @@ class _InfoPersoFormState extends State<InfoPersoForm> {
                                             setState(() => _ville = value),
                                     validator:
                                         (value) =>
-                                            value!.isEmpty
-                                                //||!_villeRegex.hasMatch(value)
+                                            value!.isEmpty ||
+                                                    !_villeRegex.hasMatch(value)
                                                 ? "Entrez une ville valide"
                                                 : null,
                                     initialValue: _infoP ? _ville : null,

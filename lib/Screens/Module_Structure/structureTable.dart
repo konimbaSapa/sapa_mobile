@@ -14,8 +14,8 @@ class StructureTable extends StatefulWidget {
 class _StructureTableState extends State<StructureTable> {
   late Future<List<structureModel>> FuturStructures;
   int _currentPage = 0;
-  final int _itemsPerPage = 10;
-
+  int? _itemsPerPage = 10;
+  final List<int> ListItems = [10, 15, 20];
   @override
   void initState() {
     super.initState();
@@ -47,13 +47,37 @@ class _StructureTableState extends State<StructureTable> {
           return Column(
             children: [
               //SizedBox(height: 10.0),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                label: Text(''),
-                icon: Icon(Icons.arrow_back),
+              Row(
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    label: Text(''),
+                    icon: Icon(Icons.arrow_back),
+                  ),
+                  SizedBox(width: 15),
+
+                  DropdownButtonFormField<int>(
+                    value: _itemsPerPage,
+                    items:
+                        ListItems.map((int itemi) {
+                          return (DropdownMenuItem<int>(
+                            value: itemi,
+                            child: Text(itemi.toString()),
+                          ));
+                        }).toList(),
+                    onChanged: (int? newVal) {
+                      setState(() {
+                        _itemsPerPage = newVal;
+                        //_itemPerPage2 = _itemsPerPage!;
+                        _currentPage = 0;
+                      });
+                    },
+                  ),
+                ],
               ),
+
               ElevatedButton(
                 onPressed:
                     () => Navigator.push(
@@ -79,8 +103,8 @@ class _StructureTableState extends State<StructureTable> {
 
                   rows:
                       structure
-                          .skip(_currentPage * _itemsPerPage)
-                          .take(_itemsPerPage)
+                          .skip(_currentPage * _itemsPerPage!)
+                          .take(_itemsPerPage!)
                           .toList()
                           .asMap()
                           .entries
@@ -132,7 +156,7 @@ class _StructureTableState extends State<StructureTable> {
                   SizedBox(width: 10.0),
                   ElevatedButton(
                     onPressed:
-                        (_currentPage + 1) * _itemsPerPage < structure.length
+                        (_currentPage + 1) * _itemsPerPage! < structure.length
                             ? () {
                               setState(() {
                                 _currentPage++;

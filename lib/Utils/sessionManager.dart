@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionManager {
   static String _username = '';
@@ -67,5 +68,15 @@ class SessionManager {
     _est_coordinateur_peps = false;
     _compteur = 0;
     _fonction = '';
+  }
+
+  static Future<void> saveUserRoles(List<String> roles) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('user_roles', roles);
+  }
+
+  static Future<List<String>> getUserRoles() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList('user_roles') ?? [];
   }
 }

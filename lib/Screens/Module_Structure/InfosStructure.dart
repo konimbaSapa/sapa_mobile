@@ -24,6 +24,7 @@ class _InfosStructureState extends State<InfosStructure> {
   final RegExp _codePostalRegex = RegExp(
     r"^(0[1-9]|[1-8][0-9]|9[0-8])[0-9]{3}$",
   );
+  final RegExp _villeRegex = RegExp(r"^[A-Za-zÀ-ÿ' -]{2,40}$");
   //final RegExp _emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
 
   final bool _infoStruct = true;
@@ -128,7 +129,8 @@ class _InfosStructureState extends State<InfosStructure> {
       //Envoie HTTP POST
       try {
         final response = await http.post(
-          Uri.parse('http://10.0.2.2:8000/SAPA_Mobile/structure/insert'),
+          //Uri.parse('http://10.0.2.2:8000/SAPA_Mobile/structure/insert'),
+          Uri.parse('http://5.196.225.227/SAPA_Mobile/structure/insert'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode(dataToSend),
         );
@@ -144,6 +146,11 @@ class _InfosStructureState extends State<InfosStructure> {
           );
         } else {
           print('Erreur lors de la creation ${response.body}');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Erreur lors de la création ${response.body}"),
+            ),
+          );
         }
       } catch (e) {
         print('Flutter Exception $e');
@@ -405,7 +412,10 @@ class _InfosStructureState extends State<InfosStructure> {
                                             setState(() => _adresse = value),
                                     validator:
                                         (value) =>
-                                            value!.isEmpty
+                                            value!.isEmpty ||
+                                                    !_adresseRegex.hasMatch(
+                                                      value,
+                                                    )
                                                 ? "Veuillez entrer un adresse valable"
                                                 : null,
                                     initialValue: _infoStruct ? _adresse : null,
@@ -551,8 +561,8 @@ class _InfosStructureState extends State<InfosStructure> {
                                             setState(() => _ville = value),
                                     validator:
                                         (value) =>
-                                            value!.isEmpty
-                                                //||!_villeRegex.hasMatch(value)
+                                            value!.isEmpty ||
+                                                    !_villeRegex.hasMatch(value)
                                                 ? "Entrez une ville valide"
                                                 : null,
                                     initialValue: _infoStruct ? _ville : null,

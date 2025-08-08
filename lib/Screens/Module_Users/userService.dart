@@ -1,9 +1,13 @@
+import 'package:koon/Utils/sessionManager.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'userModel.dart';
 import 'dart:convert';
 
 class userService {
-  static String hostAdress = '10.0.2.2:8000';
+  //static String hostAdress = '127.0.0.1:43703';
+  //static String hostAdress = '10.0.2.2:8000';
+  static String hostAdress = '5.196.225.227';
 
   static Future<List<userModel>> fetchUsers() async {
     var url = Uri.parse('http://$hostAdress/SAPA-Mobile/users');
@@ -36,6 +40,24 @@ class userService {
       }
     } catch (e) {
       throw Exception('Erreur lors du chargement des utilisateurs : $e');
+    }
+  }
+
+  //Pour la recuperation des roles de l'utilisateur
+  Future<void> fetchAndStoreRoles(int idUser) async {
+    final response = await http.post(
+      Uri.parse('http://5.196.225.227/SAPA-Mobile/users/roles'),
+      headers: {'Content-type': 'appication/json'},
+      body: jsonEncode({'id_user': idUser}),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      List<String> roles = List<String>.from(data['roles']);
+      await SessionManager.saveUserRoles(roles);
+    } else {
+      print("Erreur lors du chargement des roles");
+      //ScaffoldMessenger.of().showSnackBar(SnackBar(content: Text('Erreur lors du chaargement des roles'))) ;
     }
   }
 

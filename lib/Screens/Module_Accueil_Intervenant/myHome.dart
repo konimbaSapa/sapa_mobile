@@ -7,14 +7,14 @@ import 'Accueil_Components/myCategoryGrid.dart';
 import 'Accueil_Components/myHomeReminder.dart';
 import 'Accueil_Components/myMotivationCarrousel.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MyHomePageIntervenant extends StatefulWidget {
+  const MyHomePageIntervenant({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => MyHomePageState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePageIntervenant> {
   String prenom = SessionManager.username;
 
   @override
